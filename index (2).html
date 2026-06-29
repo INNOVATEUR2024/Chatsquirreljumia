@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#f68b1e">
+  <meta name="description" content="Marketplace Jumia-like Côte d'Ivoire - Flutter / Web / iOS / Android">
+  <title>Jumia CI - Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Icons+Round&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ══════════ DRAWER ══════════ -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-header">
+      <div class="logo" style="color:#fff">Jumia<span>CI</span></div>
+      <button class="drawer-close" id="drawerClose"><span class="material-icons-round">close</span></button>
+    </div>
+    <div class="drawer-user" id="drawerUser"></div>
+    <div class="drawer-section-title">Univers</div>
+    <div class="drawer-nav" id="drawerNav"></div>
+    <div class="drawer-section-title" style="margin-top:8px">Navigation</div>
+    <div class="drawer-links">
+      <div class="drawer-link" data-tab="home"><span class="material-icons-round">home</span>Accueil</div>
+      <div class="drawer-link" data-tab="categories"><span class="material-icons-round">category</span>Catégories</div>
+      <div class="drawer-link" data-tab="offers"><span class="material-icons-round">local_offer</span>Offres du Jour</div>
+      <div class="drawer-link" data-tab="account"><span class="material-icons-round">person</span>Mon Compte</div>
+    </div>
+  </nav>
+
+  <!-- ══════════ SEARCH OVERLAY ══════════ -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay-inner">
+      <div class="search-overlay-bar">
+        <span class="material-icons-round" style="color:var(--primary);font-size:22px">search</span>
+        <input type="text" id="searchOverlayInput" placeholder="Que cherchez-vous ?" autocomplete="off">
+        <button class="search-overlay-close" id="searchOverlayClose"><span class="material-icons-round">close</span></button>
+      </div>
+      <div class="search-universe-chips" id="searchUniverseChips"></div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ PUBLISH MODAL ══════════ -->
+  <div class="publish-overlay" id="publishOverlay">
+    <div class="publish-sheet" id="publishSheet">
+      <div class="publish-sheet-header">
+        <h3 id="publishSheetTitle">Que souhaitez-vous publier ?</h3>
+        <button class="publish-close" id="publishClose"><span class="material-icons-round">close</span></button>
+      </div>
+      <div id="publishBody"></div>
+    </div>
+  </div>
+
+  <div id="app">
+
+    <!-- ══════════ TAB: ACCUEIL ══════════ -->
+    <div class="tab-panel active" id="tab-home">
+      <header class="top-header sticky-header">
+        <div class="header-top">
+          <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu"><span class="material-icons-round">menu</span></button>
+          <div class="logo">Jumia<span>CI</span></div>
+          <div class="header-actions">
+            <button class="icon-btn" id="schoolBtn" aria-label="École"><span class="material-icons-round">school</span></button>
+            <button class="icon-btn cart-btn" aria-label="Panier"><span class="material-icons-round">shopping_cart</span><span class="badge" id="cartBadge">0</span></button>
+          </div>
+        </div>
+        <div class="search-bar" id="homeSearchBar">
+          <span class="material-icons-round search-icon">search</span>
+          <input type="text" id="searchInput" placeholder="Que cherchez-vous ?" autocomplete="off" readonly>
+          <button class="search-action" aria-label="Rechercher"><span class="material-icons-round">arrow_forward</span></button>
+        </div>
+      </header>
+      <main class="tab-scroll-body">
+        <div class="main-content">
+          <!-- Universe Sections injected by JS -->
+          <div id="universeHomeContent"></div>
+          <section class="hero-carousel" id="heroCarousel">
+            <div class="carousel-track" id="carouselTrack"></div>
+            <div class="carousel-dots" id="carouselDots"></div>
+          </section>
+          <section class="category-grid" id="categoryGrid"></section>
+          <section class="flash-sale">
+            <div class="section-header">
+              <div class="flash-title">
+                <span class="material-icons-round">flash_on</span>
+                <h2>Ventes Flash</h2>
+              </div>
+              <div class="countdown" id="countdown">02:14:38</div>
+            </div>
+            <div class="flash-products" id="flashProducts"></div>
+          </section>
+          <section class="products-section">
+            <div class="section-header">
+              <h2>Pour vous</h2>
+              <a href="#" class="see-all">Voir tout</a>
+            </div>
+            <div class="products-grid" id="productsGrid"></div>
+            <button class="load-more" id="loadMore">Charger plus</button>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- ══════════ TAB: CATÉGORIES ══════════ -->
+    <div class="tab-panel" id="tab-categories">
+      <header class="sticky-header cat-header">
+        <div class="header-top">
+          <div class="logo">Jumia<span>CI</span></div>
+          <div class="header-actions">
+            <button class="icon-btn cart-btn" aria-label="Panier"><span class="material-icons-round">shopping_cart</span><span class="badge" id="cartBadge2">0</span></button>
+          </div>
+        </div>
+        <div class="search-bar" style="margin-top:10px">
+          <span class="material-icons-round search-icon">search</span>
+          <input type="text" id="catSearchInput" placeholder="Chercher dans les catégories..." autocomplete="off">
+        </div>
+      </header>
+      <main class="tab-scroll-body">
+        <div class="cat-layout">
+          <nav class="cat-sidebar" id="catSidebar"></nav>
+          <div class="cat-products" id="catProducts"></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ══════════ TAB: OFFRES ══════════ -->
+    <div class="tab-panel" id="tab-offers">
+      <header class="sticky-header offers-header">
+        <div class="header-top">
+          <div class="logo">Jumia<span>CI</span></div>
+          <h2 class="header-page-title">Offres du Jour</h2>
+          <div class="header-actions">
+            <button class="icon-btn cart-btn" aria-label="Panier"><span class="material-icons-round">shopping_cart</span><span class="badge" id="cartBadge3">0</span></button>
+          </div>
+        </div>
+      </header>
+      <main class="tab-scroll-body">
+        <div class="offers-content" id="offersContent"></div>
+      </main>
+    </div>
+
+    <!-- ══════════ TAB: COMPTE ══════════ -->
+    <div class="tab-panel" id="tab-account">
+      <header class="sticky-header account-header">
+        <div class="header-top">
+          <div class="logo">Jumia<span>CI</span></div>
+          <h2 class="header-page-title">Mon Compte</h2>
+        </div>
+      </header>
+      <main class="tab-scroll-body">
+        <div class="account-content" id="accountContent"></div>
+      </main>
+    </div>
+
+    <!-- ══════════ BOTTOM NAV ══════════ -->
+    <nav class="bottom-nav">
+      <a href="#" class="nav-item active" data-tab="home"><span class="material-icons-round">home</span><span>Accueil</span></a>
+      <a href="#" class="nav-item" data-tab="categories"><span class="material-icons-round">category</span><span>Catégories</span></a>
+      <a href="#" class="nav-item" data-tab="offers"><span class="material-icons-round">local_offer</span><span>Offres</span></a>
+      <a href="#" class="nav-item" data-tab="account"><span class="material-icons-round">person</span><span>Compte</span></a>
+    </nav>
+
+    <!-- Publish FAB -->
+    <button class="publish-fab" id="publishFab" aria-label="Publier une annonce">
+      <span class="material-icons-round">add</span>
+    </button>
+
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
